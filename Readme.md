@@ -18,7 +18,7 @@
 
 #### 4. Check if node1 joined master
 ```
-vagrant ssh master`
+vagrant ssh master
 sudo -i
 kubectl get nodes
 ```
