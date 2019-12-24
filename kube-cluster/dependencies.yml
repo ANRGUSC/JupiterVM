@@ -1,0 +1,45 @@
+- hosts: all
+  become: yes
+  tasks:
+   - name: 'Install docker and role dependencies'
+     become: yes
+     apt:
+       name: "{{item}}"
+       state: present
+       install_recommends: false
+     with_items:
+        - "apt-transport-https"
+        - "ca-certificates"
+        - "software-properties-common"
+        - "cron"
+
+   - name: add Kubernetes apt-key
+     apt_key:
+       url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+       state: present
+
+   - name: add Kubernetes' APT repository
+     apt_repository:
+      repo: deb http://apt.kubernetes.io/ kubernetes-xenial main
+      state: present
+      filename: 'kubernetes'
+
+   - name: install kubelet
+     apt:
+       name: kubelet=1.14.0-00
+       state: present
+       update_cache: true
+
+   - name: install kubeadm
+     apt:
+       name: kubeadm=1.14.0-00
+       state: present
+
+- hosts: master
+  become: yes
+  tasks:
+   - name: install kubectl
+     apt:
+       name: kubectl=1.14.0-00
+       state: present
+       force: yes

@@ -1,0 +1,89 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+
+$common = <<-SCRIPT
+
+echo Common Configs...
+apt-get update
+apt-get install -y docker.io
+
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
+sudo apt-add-repository "deb http://apt.kubernetes.io/ kubernetes-xenial main"
+sudo apt install -y kubeadm
+
+sudo swapoff -a
+systemctl enable docker
+
+SCRIPT
+
+
+
+$masterscript = <<-SCRIPT
+# https://docs.projectcalico.org/v3.9/getting-started/kubernetes/
+echo configuring MASTER...
+
+sudo kubeadm init --pod-network-cidr=192.168.0.0/16 --apiserver-advertise-address=10.10.10.1
+
+mkdir -p $HOME/.kube
+sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+kubectl apply -f https://docs.projectcalico.org/v3.9/manifests/calico.yaml
+kubeadm token create --print-join-command > /vagrant/join.txt
+SCRIPT
+
+
+$nodescript = <<-SCRIPT
+echo configuring NODE...
+sudo $(cat /vagrant/join.txt)
+SCRIPT
+
+
+
+Vagrant.configure("2") do |config|
+
+
+  config.vm.provider "virtualbox" do |vb|
+     # Display the VirtualBox GUI when booting the machine
+     # vb.gui = true
+  
+     # Customize the amount of memory on the VM:
+     vb.memory = "2048"
+     vb.cpus = 2
+  end
+
+
+
+  config.vm.define "master" do |master|
+
+    master.vm.box = "hashicorp/bionic64"
+    master.vm.network "private_network", ip: "10.10.10.1", virtualbox__intnet: true, netmask:24
+    
+    master.vm.provision "shell", inline: $common
+    master.vm.provision "shell", inline: $masterscript
+  end
+
+
+
+  config.vm.define "node1" do |node|
+        node.vm.network "forwarded_port", guest: 80, host: 3001
+        node.vm.hostname = "node1"
+        node.vm.box = "hashicorp/bionic64"
+        node.vm.network "private_network", ip: "10.10.10.2" , virtualbox__intnet: true, netmask:24
+
+        node.vm.provision "shell", inline: $common
+        node.vm.provision "shell", inline: $nodescript
+  end
+
+  config.vm.define "node2" do |node|
+        node.vm.network "forwarded_port", guest: 22, host: 3002
+	node.vm.hostname = "node2"
+        node.vm.box = "hashicorp/bionic64"
+        node.vm.network "private_network", ip: "10.10.10.3" , virtualbox__intnet: true, netmask:24
+
+        node.vm.provision "shell", inline: $common
+        node.vm.provision "shell", inline: $nodescript
+  end
+
+end
