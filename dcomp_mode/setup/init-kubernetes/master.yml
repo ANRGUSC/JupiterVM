@@ -19,7 +19,7 @@
             shell: kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/2140ac876ef134e0ed5af15c65e414cf26827915/Documentation/kube-flannel.yml
 
           - name: Create token command
-            shell: kubeadm token create --print-join-command | tee join.txt
+            shell: kubeadm token create --print-join-command | tee join.txt && echo " --ignore-preflight-errors all" >> join.txt
 
           - name: Get the join.txt file
             fetch:
