@@ -1,4 +1,5 @@
-#### Install the dependencies by running setup/get-deps.sh
+#### Install the dependencies by running 
+- `sudo sh setup/get-deps.sh`
 
 #### cd into setup and run the following lists of commands using ansible-playbook
 
