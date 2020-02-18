@@ -1,7 +1,7 @@
 ### A. Install the dependencies by running 
 - `sudo sh setup/get-deps.sh`
 
-### B. Generate the hosts file from the model python file on DCOMP
+### B. Generate the hosts file from the model python file from DCOMP
 
 The model python file (say `ABC.py`) in the DCOMP testbed should have the declared the two variables -
 JUPITER_MASTER_NODES and JUPITER_WORKER_NODES.
