@@ -4,7 +4,7 @@
 ### B. Generate the hosts file from the model python file on DCOMP
 
 The model python file (say `ABC.py`) in the DCOMP testbed should have the declared the two variables -
-JUPITER_MASTER_NODES and JUPITER_WORKER_NODES each in a single line.
+JUPITER_MASTER_NODES and JUPITER_WORKER_NODES.
 
 The hostgenerator.py script looks for these two variables and generates the `hosts` file automatically 
 
