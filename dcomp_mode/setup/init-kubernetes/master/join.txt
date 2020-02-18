@@ -1,1 +1,1 @@
-kubeadm join 172.30.0.11:6443 --token cdydb0.k43h21g5ipgkdzns     --discovery-token-ca-cert-hash sha256:cd816ccd829b378dd543495c36ac6f2aed46dfd817cfc1a91d5d7bae8624873f --ignore-preflight-errors all 
+kubeadm join 172.30.0.10:6443 --token zmye51.384ll1l6hq4k08nb     --discovery-token-ca-cert-hash sha256:7d1f341e2a126e9c606376b73148a663f94fd67d295a0d6690c0a74bd9f30791  --ignore-preflight-errors=all
