@@ -12,9 +12,15 @@ You will access your experiment nodes through the xdc. Create an xdc container
 and click the link to the xdc UI. Under the "Files" tab, you will see a drop
 down menu labeled "New". Expand the menu and click "Terminal". 
 
-### Attach xdc to Experiment
+### Attach xdc to Experiment and Materalize a Realization
+`{PROJECT_NAME}` and `{EXPERIMENT_NAME}` refer to the names used above in 
+section "Prepare Experiment on MergeTB". `{REALIZATION_NAME}` is the new name
+for the realization (e.g. real0).
 
-    TODO
+    mergetb login {USERNAME}
+    mergetb -p {PROJECT_NAME} realize {EXPERIMENT_NAME} {REALIZATION_NAME} --accept
+    mergetb -p {PROJECT_NAME} materialize {EXPERIMENT_NAME} {REALIZATION_NAME}
+    mergetb -p {PROJECT_NAME} attach {EXPERIMENT_NAME} {REALIZATION_NAME} {XDC_NAME}
 
 ### Install Required Packages
 
