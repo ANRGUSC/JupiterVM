@@ -52,6 +52,9 @@ In your xdc, execute
 
     sudo apt update
     sudo apt upgrade -y
+
+Then,
+
     sudo apt install git -y
     git clone https://github.com/ANRGUSC/JupiterVM.git
     cd JupiterVM/mergetb
@@ -67,7 +70,9 @@ python model.
 
     python3 host_generator.py mergetb_model.py
 
-### `cd` into ansible/ and run the following lsit of commands
+### `cd` into ansible/ and run the following list of commands
+
+Run these **one at a time**.
 
     ansible-playbook -K -i hosts common.yml
     ansible-playbook -K -i hosts master.yml
