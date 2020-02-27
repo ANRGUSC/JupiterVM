@@ -25,6 +25,6 @@
             fetch:
                     src: ./join.txt
                     dest: .
-
-
-
+          - debug:
+              msg:
+              - "Fetched token command from master node to {CURDIR}/master/join.txt"

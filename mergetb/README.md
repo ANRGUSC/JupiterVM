@@ -72,7 +72,8 @@ python model.
 
 ### `cd` into ansible/ and run the following list of commands
 
-Run these **one at a time**.
+Run these **one at a time** and in this order. Check for errors before 
+continuing.
 
     ansible-playbook -K -i hosts common.yml
     ansible-playbook -K -i hosts master.yml
