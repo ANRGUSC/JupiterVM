@@ -1,4 +1,13 @@
 #!/bin/bash
+
+#adding jason's name here
+
+#adding another comment
+
+#adding third cmoment
+
+#adding fourth comment
+
 vmname = $1
 vm=`VBoxManage list runningvms | grep $1`
 
