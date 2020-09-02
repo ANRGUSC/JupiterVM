@@ -1,0 +1,12 @@
+    1  kubectl get nodes
+    2  sudo kubectl get nodes
+    3  kubectl
+    4  kubectl get pods
+    5  kubectl
+    6  ls
+    7  sudo su
+    8  clear
+    9  ls
+   10  histroy
+   11  history
+
